@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Lost & Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-container h1,
+        .profile-container h2,
+        .profile-container h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #007bff;
+        }
+
+        .post {
+            background-color: #fff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+        }
+
+        .post p {
+            margin: 0.5rem 0;
+        }
+
+        .post .post-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+
+        .post button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .post button:hover {
+            background-color: #c82333;
+        }
+
+        .no-posts {
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Your Profile</h1>
+        <h2>Email: {{ email }}</h2>
+        <h3>Your Posts:</h3>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post">
+                    <p><strong>Status:</strong> {{ post.status }}</p>
+                    <p><strong>Description:</strong> {{ post.description }}</p>
+                    <p><strong>Time:</strong> {{ post.time }}</p>
+                    <p><strong>Location:</strong> {{ post.location }}</p>
+                    <div class="post-actions">
+                        <form method="POST">
+                            <input type="hidden" name="post_id" value="{{ post.id }}">
+                            <button type="submit">Delete Post</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-posts">No posts available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
